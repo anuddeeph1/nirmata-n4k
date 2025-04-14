@@ -1030,7 +1030,8 @@ admissionController:
     resources:
       # -- Pod resource limits
       limits:
-        memory: 384Mi
+        cpu: 1500m
+        memory: 1500Mi
       # -- Pod resource requests
       requests:
         cpu: 100m
@@ -1304,7 +1305,8 @@ backgroundController:
   resources:
     # -- Pod resource limits
     limits:
-      memory: 128Mi
+      cpu: 1000m
+      memory: 1024Mi
     # -- Pod resource requests
     requests:
       cpu: 100m
@@ -1580,7 +1582,8 @@ cleanupController:
   resources:
     # -- Pod resource limits
     limits:
-      memory: 128Mi
+      cpu: 1000m
+      memory: 1024Mi
     # -- Pod resource requests
     requests:
       cpu: 100m
@@ -1906,7 +1909,8 @@ reportsController:
   resources:
     # -- Pod resource limits
     limits:
-      memory: 128Mi
+      cpu: 2000m
+      memory: 2048Mi
     # -- Pod resource requests
     requests:
       cpu: 100m
@@ -2075,7 +2079,7 @@ reportsController:
 
 
 reports-server:
-  enabled: false
+  enabled: true
   fipsEnabled: false
   # -- Internal settings used with `helm template` to generate install manifest
   # @ignored
@@ -2203,13 +2207,13 @@ reports-server:
   resources:
     # -- Container resource limits
     limits:
-      # cpu: 100m
-      # memory: 128Mi
+       cpu: 1500m
+       memory: 2048Mi
 
     # -- Container resource requests
     requests:
-      # cpu: 100m
-      # memory: 128Mi
+       cpu: 100m
+       memory: 128Mi
 
   autoscaling:
     # -- Enable autoscaling
