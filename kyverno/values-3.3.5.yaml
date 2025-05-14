@@ -14,7 +14,7 @@ global:
   # -- (list) Global list of Image pull secrets
   # When set, it will override any values set under `imagePullSecrets` under different components across the chart.
   imagePullSecrets: 
-    - name: infy-image-pull-secret
+    - name: "infy-image-pull-secret"
 
   # -- Resync period for informers
   resyncPeriod: 15m
@@ -2124,7 +2124,7 @@ reports-server:
   imagePullSecrets: []
 
   # -- Priority class name
-  priorityClassName: system-cluster-critical
+  priorityClassName: kyverno-critical
 
   serviceAccount:
     # -- Create service account
@@ -2139,15 +2139,9 @@ reports-server:
   # -- Pod annotations
   podAnnotations: {}
 
-  # -- Labels to add to resources managed by the chart
-  commonLabels: {}
-
   # -- Pod security context
   podSecurityContext:
     fsGroup: 2000
-
-  # -- Provide additional environment variables to the pods. Map with the same format as kubernetes deployment spec's env.
-  podEnv: {}
 
   # -- Container security context
   # @default -- See [values.yaml](values.yaml)
@@ -2213,13 +2207,13 @@ reports-server:
   resources:
     # -- Container resource limits
     limits:
-      cpu: 1500m
-      memory: 2048Mi
+       cpu: 1500m
+       memory: 2048Mi
 
     # -- Container resource requests
     requests:
-      cpu: 100m
-      memory: 128Mi
+       cpu: 100m
+       memory: 128Mi
 
   autoscaling:
     # -- Enable autoscaling
@@ -2236,16 +2230,6 @@ reports-server:
 
     # -- Target Memory utilisation
     targetMemoryUtilizationPercentage: ~
-
-
-  # -- Using a PDB is highly recommended for highly available deployments. Defaults to enabled. The default configuration doesn't prevent disruption when using a single replica
-  pdb:
-    # -- Enable PodDisruptionBudget
-    enabled: true
-    # -- minAvailable pods for PDB, cannot be used together with maxUnavailable
-    minAvailable: ~
-    # -- maxUnavailable pods for PDB, will take precedence over minAvailable if both are defined
-    maxUnavailable: 50%
 
   # -- Node selector
   nodeSelector: {}
@@ -2269,48 +2253,21 @@ reports-server:
       enabled: true
       endpoints: ~
       insecure: true
-      # PVC Storage configuration for etcd persistence:
-      # - Default: If not specified, the chart will allocate 2Gi of storage.
+      # Storage configuration for etcd persistence:
+      # - Default: If not specified, the chart will allocate 1Gi of storage.
       # - Override: Set a custom storage size (e.g., "2Gi", "5Gi") as needed.
-      # - NOTE: keep this **10‑20 % greater** than `quotaBackendBytes`
       # This value defines the size of the persistent volume claim (PVC) for etcd.
-      storage: 8Gi
+      storage: 5Gi
 
-    # Quota for etcd's internal database (BoltDB) **in bytes**
-    # - What it limits: the logical size of the etcd DB file, *not* the PVC.
-    # - Format: plain integer bytes (no Ki/Mi/Gi suffix).
-      quotaBackendBytes: 8589934592
-
-      ## @param nodeSelector [object] Node labels for pod assignment
-      ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
-      ##
-      nodeSelector: {}
-
-      ## @param tolerations [array] Tolerations for pod assignment
-      ## Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-      ##
-      tolerations: []
 
     db:
-      # -- If set, database connection information will be read from the Secret with this name. Overrides `db.host`, `db.name`, `db.user`, `db.password` and `db.readReplicaHosts`.
+      # -- If set, database connection information will be read from the Secret with this name. Overrides `db.host`, `db.name`, `db.user`, and `db.password`.
       secretName: ""
 
       # -- Database host
       host: reports-server-cluster-rw.reports-server
-
       # -- The database host will be read from this `key` in the specified Secret, when `db.secretName` is set.
       hostSecretKeyName: "host"
-
-      # -- Database read replica hosts
-      readReplicaHosts: ""
-
-      # -- The database read replica hosts will be read from this `key` in the specified Secret, when `db.secretName` is set.
-      readReplicaHostsSecretKeyName: readReplicaHosts
-
-      # -- Database port
-      port:
-      # -- The database port will be read from this `key` in the specified Secret, when `db.secretName` is set.
-      portSecretKeyName: "port"
 
       # -- Database name
       name: reportsdb
@@ -2340,11 +2297,6 @@ reports-server:
 
       # -- Database SSL cert
       sslcert: ""
-
-      # -- Volume configuration for RDS certificate
-      sslrds:
-        secretName: ""
-        mountPath: "/etc/ssl/rds"
 
   apiServicesManagement:
     # -- Create a helm hooks to install and delete api services
