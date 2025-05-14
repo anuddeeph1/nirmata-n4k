@@ -134,7 +134,7 @@ crds:
 
     # -- Image pull secrets
     imagePullSecrets: 
-      - name: infy-artifactory-secret
+      - name: infy-image-pull-secret
 
     # -- Security context for the pod
     podSecurityContext: {}
@@ -512,7 +512,7 @@ webhooksCleanup:
 
   # -- Image pull secrets
   imagePullSecrets: 
-    - name: infy-artifactory-secret
+    - name: infy-image-pull-secret
   # -- Security context for the pod
   podSecurityContext: {}
 
@@ -569,7 +569,7 @@ policyReportsCleanup:
 
   # -- Image pull secrets
   imagePullSecrets: 
-    - name: infy-artifactory-secret
+    - name: infy-image-pull-secret
   # - name: secretName
 
   # -- Security context for the pod
@@ -965,7 +965,7 @@ admissionController:
 
   # -- Image pull secrets
   imagePullSecrets: 
-    - name: infy-artifactory-secret
+    - name: infy-image-pull-secret
     # - secretName
 
   initContainer:
@@ -1250,7 +1250,7 @@ backgroundController:
 
   # -- Image pull secrets
   imagePullSecrets: 
-    - name: infy-artifactory-secret
+    - name: infy-image-pull-secret
     # - secretName
 
   # -- (int) Desired number of pods
@@ -1519,7 +1519,7 @@ cleanupController:
 
   # -- Image pull secrets
   imagePullSecrets: 
-    - name: infy-artifactory-secret
+    - name: infy-image-pull-secret
     # - secretName
 
   # -- (int) Desired number of pods
@@ -1838,7 +1838,7 @@ reportsController:
 
   # -- Image pull secrets
   imagePullSecrets: 
-    - name: infy-artifactory-secret
+    - name: infy-image-pull-secret
     # - secretName
 
   # -- (int) Desired number of pods
@@ -2127,7 +2127,7 @@ reports-server:
 
   # -- Image pull secrets
   imagePullSecrets: 
-    - name: infy-artifactory-secret
+    - name: infy-image-pull-secret
 
   # -- Priority class name
   priorityClassName: system-cluster-critical
@@ -2379,7 +2379,7 @@ reports-server:
 
     # -- Image pull secrets
     imagePullSecrets: 
-      - name: infy-artifactory-secret
+      - name: infy-image-pull-secret
 
     # -- Security context for the pod
     podSecurityContext: {}
