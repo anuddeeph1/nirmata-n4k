@@ -2213,7 +2213,7 @@ reports-server:
     # -- Container resource limits
     limits:
       cpu: 1500m
-       memory: 2048Mi
+      memory: 2048Mi
 
     # -- Container resource requests
     requests:
