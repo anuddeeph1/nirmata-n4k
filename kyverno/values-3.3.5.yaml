@@ -123,7 +123,7 @@ crds:
     image:
       # -- (string) Image registry
       registry: ~
-      defaultRegistry: reg.nirmata.io
+      defaultRegistry: infyartifactory.jfrog.io/ghcr-remote
       # -- (string) Image repository
       repository: nirmata/kyverno-cli
       # -- (string) Image tag
@@ -133,8 +133,8 @@ crds:
       pullPolicy: IfNotPresent
 
     # -- Image pull secrets
-    imagePullSecrets: []
-    # - name: secretName
+    imagePullSecrets: 
+      - name: infy-artifactory-secret
 
     # -- Security context for the pod
     podSecurityContext: {}
@@ -500,9 +500,9 @@ webhooksCleanup:
 
   image:
     # -- (string) Image registry
-    registry: ~
+    registry: infyartifactory.jfrog.io/ghcr-remote
     # -- Image repository
-    repository: reg.nirmata.io/nirmata/kubectl
+    repository: nirmata/kubectl
     # -- Image tag
     # Defaults to `latest` if omitted
     tag: '1.32.1'
@@ -511,8 +511,8 @@ webhooksCleanup:
     pullPolicy: ~
 
   # -- Image pull secrets
-  imagePullSecrets: []
-
+  imagePullSecrets: 
+    - name: infy-artifactory-secret
   # -- Security context for the pod
   podSecurityContext: {}
 
@@ -557,7 +557,7 @@ policyReportsCleanup:
 
   image:
     # -- (string) Image registry
-    registry: reg.nirmata.io
+    registry: infyartifactory.jfrog.io/ghcr-remote
     # -- Image repository
     repository: nirmata/kubectl
     # -- Image tag
@@ -568,7 +568,8 @@ policyReportsCleanup:
     pullPolicy: ~
 
   # -- Image pull secrets
-  imagePullSecrets: []
+  imagePullSecrets: 
+    - name: infy-artifactory-secret
   # - name: secretName
 
   # -- Security context for the pod
@@ -963,7 +964,8 @@ admissionController:
     #   type: File
 
   # -- Image pull secrets
-  imagePullSecrets: []
+  imagePullSecrets: 
+    - name: infy-artifactory-secret
     # - secretName
 
   initContainer:
@@ -971,7 +973,7 @@ admissionController:
     image:
       # -- Image registry
       registry: ~
-      defaultRegistry: reg.nirmata.io
+      defaultRegistry: infyartifactory.jfrog.io/ghcr-remote
       # -- Image repository
       repository: nirmata/kyvernopre
       # -- (string) Image tag
@@ -1018,7 +1020,7 @@ admissionController:
     image:
       # -- Image registry
       registry: ~
-      defaultRegistry: reg.nirmata.io
+      defaultRegistry: infyartifactory.jfrog.io/ghcr-remote
       # -- Image repository
       repository: nirmata/kyverno
       # -- (string) Image tag
@@ -1237,7 +1239,7 @@ backgroundController:
   image:
     # -- Image registry
     registry: ~
-    defaultRegistry: reg.nirmata.io
+    defaultRegistry: infyartifactory.jfrog.io/ghcr-remote
     # -- Image repository
     repository: nirmata/background-controller
     # -- Image tag
@@ -1247,7 +1249,8 @@ backgroundController:
     pullPolicy: IfNotPresent
 
   # -- Image pull secrets
-  imagePullSecrets: []
+  imagePullSecrets: 
+    - name: infy-artifactory-secret
     # - secretName
 
   # -- (int) Desired number of pods
@@ -1505,7 +1508,7 @@ cleanupController:
   image:
     # -- Image registry
     registry: ~
-    defaultRegistry: reg.nirmata.io
+    defaultRegistry: infyartifactory.jfrog.io/ghcr-remote
     # -- Image repository
     repository: nirmata/cleanup-controller
     # -- (string) Image tag
@@ -1515,7 +1518,8 @@ cleanupController:
     pullPolicy: IfNotPresent
 
   # -- Image pull secrets
-  imagePullSecrets: []
+  imagePullSecrets: 
+    - name: infy-artifactory-secret
     # - secretName
 
   # -- (int) Desired number of pods
@@ -1823,7 +1827,7 @@ reportsController:
   image:
     # -- Image registry
     registry: ~
-    defaultRegistry: reg.nirmata.io
+    defaultRegistry: infyartifactory.jfrog.io/ghcr-remote
     # -- Image repository
     repository: nirmata/reports-controller
     # -- (string) Image tag
@@ -1833,7 +1837,8 @@ reportsController:
     pullPolicy: IfNotPresent
 
   # -- Image pull secrets
-  imagePullSecrets: []
+  imagePullSecrets: 
+    - name: infy-artifactory-secret
     # - secretName
 
   # -- (int) Desired number of pods
@@ -2112,7 +2117,7 @@ reports-server:
 
   image:
     # -- Image registry
-    registry: reg.nirmata.io
+    registry: infyartifactory.jfrog.io/ghcr-remote
     # -- Image repository
     repository: nirmata/reports-server
     # -- Image pull policy
@@ -2121,7 +2126,8 @@ reports-server:
     tag: ~
 
   # -- Image pull secrets
-  imagePullSecrets: []
+  imagePullSecrets: 
+    - name: infy-artifactory-secret
 
   # -- Priority class name
   priorityClassName: system-cluster-critical
@@ -2361,18 +2367,19 @@ reports-server:
 
     image:
       # -- (string) Image registry
-      registry: ghcr.io
+      registry: infyartifactory.jfrog.io/ghcr-remote
       # -- Image repository
       repository: nirmata/kubectl
       # -- Image tag
       # Defaults to `latest` if omitted
-      tag: '1.30.2'
+      tag: '1.32.1'
       # -- (string) Image pull policy
       # Defaults to image.pullPolicy if omitted
       pullPolicy: ~
 
     # -- Image pull secrets
-    imagePullSecrets: []
+    imagePullSecrets: 
+      - name: infy-artifactory-secret
 
     # -- Security context for the pod
     podSecurityContext: {}
