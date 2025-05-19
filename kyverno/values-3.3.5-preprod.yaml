@@ -2171,7 +2171,7 @@ reports-server:
     - name: infy-image-pull-secret
 
   # -- Priority class name
-  priorityClassName: kyverno-critical
+  priorityClassName: system-cluster-critical
 
   serviceAccount:
     # -- Create service account
