@@ -51,10 +51,6 @@ global:
     key: app
     operator: Equal
     value: agcore
-  - key: "app"
-    value: "blackduck"
-    operator: "Equal"
-    effect: "NoSchedule"
 
 
 # -- (string) Override the name of the chart
@@ -159,10 +155,6 @@ crds:
       key: app
       operator: Equal
       value: agcore
-    - key: "app"
-      value: "blackduck"
-      operator: "Equal"
-      effect: "NoSchedule"
 
     # -- Pod anti affinity constraints.
     podAntiAffinity: {}
@@ -545,10 +537,6 @@ webhooksCleanup:
     key: app
     operator: Equal
     value: agcore
-  - key: "app"
-    value: "blackduck"
-    operator: "Equal"
-    effect: "NoSchedule"
 
   # -- Pod anti affinity constraints.
   podAntiAffinity: {}
@@ -613,10 +601,6 @@ policyReportsCleanup:
     key: app
     operator: Equal
     value: agcore
-  - key: "app"
-    value: "blackduck"
-    operator: "Equal"
-    effect: "NoSchedule"
 
   # -- Pod anti affinity constraints.
   podAntiAffinity: {}
@@ -943,10 +927,6 @@ admissionController:
     key: app
     operator: Equal
     value: agcore
-  - key: "app"
-    value: "blackduck"
-    operator: "Equal"
-    effect: "NoSchedule"
 
   antiAffinity:
     # -- Pod antiAffinities toggle.
@@ -1371,10 +1351,6 @@ backgroundController:
     key: app
     operator: Equal
     value: agcore
-  - key: "app"
-    value: "blackduck"
-    operator: "Equal"
-    effect: "NoSchedule"
 
   antiAffinity:
     # -- Pod antiAffinities toggle.
@@ -1701,10 +1677,6 @@ cleanupController:
     key: app
     operator: Equal
     value: agcore
-  - key: "app"
-    value: "blackduck"
-    operator: "Equal"
-    effect: "NoSchedule"
 
   antiAffinity:
     # -- Pod antiAffinities toggle.
@@ -1995,10 +1967,6 @@ reportsController:
     key: app
     operator: Equal
     value: agcore
-  - key: "app"
-    value: "blackduck"
-    operator: "Equal"
-    effect: "NoSchedule"
 
   antiAffinity:
     # -- Pod antiAffinities toggle.
@@ -2336,10 +2304,6 @@ reports-server:
     key: app
     operator: Equal
     value: agcore
-  - key: "app"
-    value: "blackduck"
-    operator: "Equal"
-    effect: "NoSchedule"
 
   # -- Affinity
   affinity: {}
@@ -2383,10 +2347,6 @@ reports-server:
         key: app
         operator: Equal
         value: agcore
-      - key: "app"
-        value: "blackduck"
-        operator: "Equal"
-        effect: "NoSchedule"
 
     db:
       # -- If set, database connection information will be read from the Secret with this name. Overrides `db.host`, `db.name`, `db.user`, `db.password` and `db.readReplicaHosts`.
@@ -2485,10 +2445,6 @@ reports-server:
       key: app
       operator: Equal
       value: agcore
-    - key: "app"
-      value: "blackduck"
-      operator: "Equal"
-      effect: "NoSchedule"
 
     # -- Pod anti affinity constraints.
     podAntiAffinity: {}
