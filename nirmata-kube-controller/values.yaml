@@ -19,7 +19,7 @@ global:
   
   # ImagePullSecret Configuration
   # Set to true to create the imagePullSecret, false to use an existing secret
-  createSecret: true
+  createSecret: false
   # Name of the imagePullSecret to use (created or existing)
   imagePullSecretName: nirmata-controller-registry-secret
   
