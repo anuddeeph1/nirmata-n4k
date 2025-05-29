@@ -42,8 +42,7 @@ global:
   #   value: 'https://proxy.example.com:3128'
 
   # -- Global node labels for pod assignment. Non-global values will override the global value.
-  nodeSelector: 
-    app: agcore
+  nodeSelector: {}
 
   # -- Global List of node taints to tolerate. Non-global values will override the global value.
   tolerations: 
@@ -145,8 +144,7 @@ crds:
     podSecurityContext: {}
 
     # -- Node labels for pod assignment
-    nodeSelector: 
-      app: agcore
+    nodeSelector: {}
 
     # -- List of node taints to tolerate
     tolerations: 
@@ -527,8 +525,7 @@ webhooksCleanup:
   podSecurityContext: {}
 
   # -- Node labels for pod assignment
-  nodeSelector:   
-    app: agcore
+  nodeSelector: {}
 
   # -- List of node taints to tolerate
   tolerations: 
@@ -591,8 +588,7 @@ policyReportsCleanup:
   podSecurityContext: {}
 
   # -- Node labels for pod assignment
-  nodeSelector:   
-    app: agcore
+  nodeSelector: {}
 
   # -- List of node taints to tolerate
   tolerations: 
@@ -917,8 +913,7 @@ admissionController:
     successThreshold: 1
 
   # -- Node labels for pod assignment
-  nodeSelector:   
-    app: agcore
+  nodeSelector: {}
 
   # -- List of node taints to tolerate
   tolerations: 
@@ -1341,8 +1336,7 @@ backgroundController:
       memory: 64Mi
 
   # -- Node labels for pod assignment
-  nodeSelector:   
-    app: agcore
+  nodeSelector: {}
 
   # -- List of node taints to tolerate
   tolerations: 
@@ -1667,8 +1661,7 @@ cleanupController:
     successThreshold: 1
 
   # -- Node labels for pod assignment
-  nodeSelector:       
-    app: agcore
+  nodeSelector: {}
 
   # -- List of node taints to tolerate
   tolerations: 
@@ -1957,8 +1950,7 @@ reportsController:
       memory: 64Mi
 
   # -- Node labels for pod assignment
-  nodeSelector: 
-    app: agcore
+  nodeSelector: {}
 
   # -- List of node taints to tolerate
   tolerations: 
@@ -2294,8 +2286,7 @@ reports-server:
     maxUnavailable: 50%
 
   # -- Node selector
-  nodeSelector:     
-    app: agcore
+  nodeSelector: {}
 
   # -- Tolerations
   tolerations: 
@@ -2340,9 +2331,7 @@ reports-server:
       ## @param nodeSelector [object] Node labels for pod assignment
       ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
       ##
-      nodeSelector: 
-        app: agcore
-
+      nodeSelector: {}
       ## @param tolerations [array] Tolerations for pod assignment
       ## Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
       ##
@@ -2440,8 +2429,7 @@ reports-server:
     podSecurityContext: {}
 
     # -- Node labels for pod assignment
-    nodeSelector:       
-      app: agcore
+    nodeSelector: {}
 
     # -- List of node taints to tolerate
     tolerations: 
