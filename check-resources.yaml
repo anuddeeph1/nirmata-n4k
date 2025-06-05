@@ -1,0 +1,123 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  annotations:
+    policies.kyverno.io/category: Resource Optimization
+    policies.kyverno.io/description: This policy checks if the resources requested
+      by a pod controller (Deployment or StatefulSet)  are within the bounds recommended
+      by the Vertical Pod Autoscaler (VPA).
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/title: Check Resources
+  name: check-resources
+spec:
+  admission: false
+  background: true
+  rules:
+  - context:
+    - apiCall:
+        jmesPath: items[?metadata.name == '{{request.object.metadata.name}}-kyverno']
+          | @[0] || `{}`
+        method: GET
+        urlPath: /apis/autoscaling.k8s.io/v1/namespaces/{{request.namespace}}/verticalpodautoscalers/
+      name: vpa
+    exclude:
+      any:
+      - resources:
+          namespaces:
+          - kube-system
+          selector:
+            matchLabels:
+              nirmata.io/resource-optimizer: "false"
+    match:
+      any:
+      - resources:
+          kinds:
+          - Deployment
+          - StatefulSet
+          - DaemonSet
+    name: memory
+    preconditions:
+      all:
+      - key: '{{ vpa.status || `{}` }}'
+        operator: NotEquals
+        value: {}
+      - key: '{{ time_since('''', ''{{vpa.metadata.creationTimestamp}}'', '''') }}'
+        operator: GreaterThan
+        value: 0m
+    skipBackgroundRequests: true
+    validate:
+      foreach:
+      - context:
+        - name: ctnr
+          variable:
+            value: '{{ request.object.spec.template.spec.containers[?name == ''{{element.containerName}}'']
+              | @[0] }}'
+        - name: memRequest
+          variable:
+            value: '{{ ctnr.resources.requests.memory || `0` }}'
+        deny:
+          conditions:
+            any:
+            - key: '{{ multiply(memRequest, `0.80`) }}'
+              message: 'overprovisioned resources: reduce memory.request for container
+                {{element.containerName}} from {{memRequest}} to {{ divide(element.target.memory,
+                `1048576`) }}Mi.'
+              operator: GreaterThan
+              value: '{{ element.upperBound.memory }}'
+            - key: '{{ multiply(memRequest, `1.20`) }}'
+              message: 'underprovisioned resources: increase memory.request for container
+                {{element.containerName}} from {{memRequest}} to {{ divide(element.target.memory,
+                `1048576`) }}Mi.'
+              operator: LessThan
+              value: '{{ element.lowerBound.memory }}'
+        list: vpa.status.recommendation.containerRecommendations
+  - context:
+    - apiCall:
+        jmesPath: items[?metadata.name == '{{request.object.metadata.name}}-kyverno']
+          | @[0] || `{}`
+        method: GET
+        urlPath: /apis/autoscaling.k8s.io/v1/namespaces/{{request.namespace}}/verticalpodautoscalers/
+      name: vpa
+    match:
+      any:
+      - resources:
+          kinds:
+          - Deployment
+          - StatefulSet
+          - DaemonSet
+    name: cpu
+    preconditions:
+      all:
+      - key: '{{ vpa.status || `{}` }}'
+        operator: NotEquals
+        value: {}
+      - key: '{{ time_since('''', ''{{vpa.metadata.creationTimestamp}}'', '''') }}'
+        operator: GreaterThan
+        value: 0m
+    skipBackgroundRequests: true
+    validate:
+      foreach:
+      - context:
+        - name: ctnr
+          variable:
+            value: '{{ request.object.spec.template.spec.containers[?name == ''{{element.containerName}}'']
+              | @[0] }}'
+        - name: cpuRequest
+          variable:
+            value: '{{ ctnr.resources.requests.cpu || `0` }}'
+        deny:
+          conditions:
+            any:
+            - key: '{{ multiply(cpuRequest, `0.80`) }}'
+              message: 'overprovisioned resources: reduce cpu.request for container
+                {{element.containerName}} from {{cpuRequest}} to {{element.target.cpu}}.'
+              operator: GreaterThan
+              value: '{{ element.upperBound.cpu }}'
+            - key: '{{ multiply(cpuRequest, `1.20`) }}'
+              message: 'underprovisioned resources: increase cpu.request for container
+                {{element.containerName}} from {{cpuRequest}} to over {{element.target.cpu}}.'
+              operator: LessThan
+              value: '{{ element.lowerBound.cpu }}'
+        list: vpa.status.recommendation.containerRecommendations
+  validationFailureAction: Audit
+
